@@ -133,4 +133,18 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body(errorResponse);
     }
+
+    @ExceptionHandler(AccountNotFoundException.class)
+    protected ResponseEntity<Object> handleNotFoundException(AccountNotFoundException exception) {
+
+        log.error(exception.getMessage(), exception);
+
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .message(exception.getMessage())
+                .statusCode(HttpStatus.NOT_FOUND.value())
+                .status(HttpStatus.NOT_FOUND)
+                .build();
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+    }
 }
