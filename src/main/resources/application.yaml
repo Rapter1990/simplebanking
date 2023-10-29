@@ -1,0 +1,18 @@
+server:
+  port: 1222
+
+# MYSQL
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  datasource:
+    url: jdbc:postgresql://${BANKING_DB_IP:localhost}:${BANKING_DB_PORT:5432}/banking
+    username: ${DATABASE_USERNAME:postgres}
+    password: ${DATABASE_PASSWORD:111111}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+      show-sql: true
