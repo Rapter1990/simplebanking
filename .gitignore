@@ -32,3 +32,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### .env file ###
+.env
