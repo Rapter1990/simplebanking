@@ -5,8 +5,13 @@ import com.eteration.simplebanking.dto.AccountDTO;
 import com.eteration.simplebanking.dto.TransactionDTO;
 import com.eteration.simplebanking.exception.AccountNotFoundException;
 import com.eteration.simplebanking.mapper.TransactionMapper;
-import com.eteration.simplebanking.model.Account;
+import com.eteration.simplebanking.model.*;
+import com.eteration.simplebanking.model.enums.TransactionType;
+import com.eteration.simplebanking.payload.request.CreateCreditRequest;
+import com.eteration.simplebanking.payload.request.CreatePhoneBillPaymentRequest;
+import com.eteration.simplebanking.payload.request.CreateWithdrawalRequest;
 import com.eteration.simplebanking.payload.request.CreatedAccountRequest;
+import com.eteration.simplebanking.payload.response.TransactionResponse;
 import com.eteration.simplebanking.repository.AccountRepository;
 import com.eteration.simplebanking.repository.TransactionRepository;
 import lombok.RequiredArgsConstructor;
@@ -69,6 +74,71 @@ public class AccountService {
                 .transactionDTOs(transactionDTOS)
                 .build();
     }
+
+    public TransactionResponse credit(CreateCreditRequest createCreditRequest){
+
+        Account account = accountRepository.findByAccountNumber(createCreditRequest.getAccountNumber())
+                .orElseThrow(() -> new AccountNotFoundException("Account Not Found : " + createCreditRequest.getAccountNumber()));
+
+        String approvalCode = UUID.randomUUID().toString();
+
+        Transaction transaction =  new DepositTransaction(createCreditRequest.getAmount());
+        transaction.setApprovalCode(approvalCode);
+        transaction.setTransactionType(TransactionType.DepositTransaction);
+        transaction.setAccount(account);
+        transaction.executeOn(account);
+
+        accountRepository.save(account);
+
+        return TransactionResponse.builder()
+                .status("OK")
+                .approvalCode(approvalCode)
+                .build();
+    }
+
+    public TransactionResponse debit(CreateWithdrawalRequest createWithdrawalRequest){
+
+        Account account = accountRepository.findByAccountNumber(createWithdrawalRequest.getAccountNumber())
+                .orElseThrow(() -> new AccountNotFoundException("Account Not Found : " + createWithdrawalRequest.getAccountNumber()));
+
+        String approvalCode = UUID.randomUUID().toString();
+
+        Transaction transaction =  new WithdrawalTransaction(createWithdrawalRequest.getAmount());
+        transaction.setApprovalCode(approvalCode);
+        transaction.setTransactionType(TransactionType.WithdrawalTransaction);
+        transaction.setAccount(account);
+        transaction.executeOn(account);
+
+        accountRepository.save(account);
+
+        return TransactionResponse.builder()
+                .status("OK")
+                .approvalCode(approvalCode)
+                .build();
+
+    }
+
+    public TransactionResponse payment(CreatePhoneBillPaymentRequest createPhoneBillPaymentRequest){
+
+        Account account = accountRepository.findByAccountNumber(createPhoneBillPaymentRequest.getAccountNumber())
+                .orElseThrow(() -> new AccountNotFoundException("Account Not Found : " + createPhoneBillPaymentRequest.getAccountNumber()));
+
+        String approvalCode = UUID.randomUUID().toString();
+
+        Transaction transaction =  new PhoneBillPaymentTransaction(createPhoneBillPaymentRequest.getAmount());
+        transaction.setApprovalCode(approvalCode);
+        transaction.setTransactionType(TransactionType.PhoneBillPaymentTransaction);
+        transaction.setAccount(account);
+        transaction.executeOn(account);
+
+        accountRepository.save(account);
+
+        return TransactionResponse.builder()
+                .status("OK")
+                .approvalCode(approvalCode)
+                .build();
+    }
+
 
 
     private String generateUniqueAccountNumber() {

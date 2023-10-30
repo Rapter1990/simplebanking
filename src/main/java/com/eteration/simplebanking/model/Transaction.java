@@ -30,6 +30,7 @@ public abstract class Transaction extends BaseEntity {
     private double amount;
 
     @Column(name ="transaction_type" , insertable = false, updatable = false)
+    @Enumerated(EnumType.STRING)
     private TransactionType transactionType;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

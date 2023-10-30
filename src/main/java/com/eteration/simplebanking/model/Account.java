@@ -11,6 +11,7 @@ import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -47,5 +48,21 @@ public class Account extends BaseEntity {
             throw new InsufficientBalanceException("Insufficient funds.");
         }
         balance -= amount;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Account other = (Account) o;
+
+        return Objects.equals(id, other.id) &&
+                Objects.equals(accountNumber, other.accountNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, accountNumber);
     }
 }

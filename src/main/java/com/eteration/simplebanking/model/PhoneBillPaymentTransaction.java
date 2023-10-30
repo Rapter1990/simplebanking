@@ -11,11 +11,8 @@ import javax.persistence.Entity;
 @DiscriminatorValue("PhoneBillPaymentTransaction")
 public class PhoneBillPaymentTransaction extends WithdrawalTransaction {
 
-    private String payee;
-
-    public PhoneBillPaymentTransaction(String payee, double amount) {
+    public PhoneBillPaymentTransaction(double amount) {
         super(amount);
-        this.payee = payee;
     }
 
 }
