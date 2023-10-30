@@ -3,6 +3,7 @@ package com.eteration.simplebanking.services;
 
 import com.eteration.simplebanking.dto.AccountDTO;
 import com.eteration.simplebanking.dto.TransactionDTO;
+import com.eteration.simplebanking.exception.AccountNotFoundException;
 import com.eteration.simplebanking.mapper.TransactionMapper;
 import com.eteration.simplebanking.model.Account;
 import com.eteration.simplebanking.payload.request.CreatedAccountRequest;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -47,6 +49,24 @@ public class AccountService {
                 .createdDateTime(savedAccount.getCreatedDateTime())
                 .balance(savedAccount.getBalance())
                 .transactionDTOs(transactionDTOs)
+                .build();
+    }
+
+    public AccountDTO getAccountByAccountNumber(String accountNumber) {
+        
+        Account account = accountRepository.findByAccountNumber(accountNumber)
+                .orElseThrow(() -> new AccountNotFoundException("Account Not Found : " + accountNumber));
+
+        List<TransactionDTO> transactionDTOS = account.getTransactions().stream()
+                        .map(transactionMapper::toTransactionDTO)
+                        .collect(Collectors.toList());
+
+        return AccountDTO.builder()
+                .owner(account.getOwner())
+                .accountNumber(account.getAccountNumber())
+                .createdDateTime(account.getCreatedDateTime())
+                .balance(account.getBalance())
+                .transactionDTOs(transactionDTOS)
                 .build();
     }
 

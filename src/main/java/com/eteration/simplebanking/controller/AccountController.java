@@ -3,14 +3,12 @@ package com.eteration.simplebanking.controller;
 import com.eteration.simplebanking.dto.AccountDTO;
 import com.eteration.simplebanking.mapper.AccountMapper;
 import com.eteration.simplebanking.payload.request.CreatedAccountRequest;
+import com.eteration.simplebanking.payload.response.AccountDetailInfo;
 import com.eteration.simplebanking.payload.response.CreatedAccountResponse;
 import com.eteration.simplebanking.services.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/account")
@@ -28,4 +26,9 @@ public class AccountController {
         return ResponseEntity.ok(accountMapper.toAccountResponse(accountDTO));
     }
 
+    @GetMapping("/account-number/{accountNumber}")
+    public ResponseEntity<AccountDetailInfo> getAccountDetails(@PathVariable String accountNumber){
+        AccountDTO accountDTO = accountService.getAccountByAccountNumber(accountNumber);
+        return ResponseEntity.ok(accountMapper.toAccountDetailInfo(accountDTO));
+    }
 }
