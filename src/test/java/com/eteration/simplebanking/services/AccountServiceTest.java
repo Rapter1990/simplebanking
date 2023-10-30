@@ -6,17 +6,18 @@ import com.eteration.simplebanking.dto.TransactionDTO;
 import com.eteration.simplebanking.exception.AccountNotFoundException;
 import com.eteration.simplebanking.mapper.TransactionMapper;
 import com.eteration.simplebanking.model.Account;
+import com.eteration.simplebanking.payload.request.CreateCreditRequest;
 import com.eteration.simplebanking.payload.request.CreatedAccountRequest;
+import com.eteration.simplebanking.payload.response.TransactionResponse;
 import com.eteration.simplebanking.repository.AccountRepository;
 import com.eteration.simplebanking.repository.TransactionRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.springframework.test.util.ReflectionTestUtils;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -115,6 +116,44 @@ class AccountServiceTest extends BaseServiceTest {
         });
 
         assertEquals("Account Not Found : " + accountNumber, exception.getMessage());
+    }
+
+    @Test
+    public void givenCreateCreditRequest_WhenAccountExists_ThenReturnTransactionResponse() {
+
+        // Given
+        String accountNumber = "12345";
+        CreateCreditRequest  request = CreateCreditRequest.builder()
+                .accountNumber(accountNumber)
+                .amount(50.0)
+                .build();
+
+        Account account = Account.builder()
+                .accountNumber("123-456")
+                .owner("John Doe")
+                .transactions(new HashSet<>())
+                .build();
+
+        String expectedApprovalCode = "test-approval-code";
+
+        TransactionResponse transactionResponse = TransactionResponse.builder()
+                .status("OK")
+                .approvalCode(expectedApprovalCode)
+                .build();
+
+        // when
+        when(accountRepository.findByAccountNumber(accountNumber)).thenReturn(Optional.of(account));
+        ReflectionTestUtils.setField(transactionResponse, "approvalCode", expectedApprovalCode);
+
+        // then
+        TransactionResponse response = accountService.credit(request);
+
+        assertEquals(transactionResponse.getStatus(), response.getStatus());
+        assertEquals(transactionResponse.getApprovalCode(), response.getApprovalCode());
+
+        // verify
+        verify(accountRepository,times(1)).findByAccountNumber(accountNumber);
+
     }
 
 }
