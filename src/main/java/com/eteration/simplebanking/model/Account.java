@@ -5,6 +5,7 @@ package com.eteration.simplebanking.model;
 
 import com.eteration.simplebanking.exception.InsufficientBalanceException;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -33,6 +34,7 @@ public class Account extends BaseEntity {
     private String owner;
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Builder.Default
     private Set<Transaction> transactions = new HashSet<>();
 
 

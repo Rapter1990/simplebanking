@@ -6,6 +6,7 @@ import com.eteration.simplebanking.exception.InsufficientBalanceException;
 import com.eteration.simplebanking.model.enums.TransactionType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
@@ -14,6 +15,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper=false)
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
