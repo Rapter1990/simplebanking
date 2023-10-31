@@ -7,6 +7,8 @@ import com.eteration.simplebanking.exception.AccountNotFoundException;
 import com.eteration.simplebanking.mapper.TransactionMapper;
 import com.eteration.simplebanking.model.Account;
 import com.eteration.simplebanking.payload.request.CreateCreditRequest;
+import com.eteration.simplebanking.payload.request.CreatePhoneBillPaymentRequest;
+import com.eteration.simplebanking.payload.request.CreateWithdrawalRequest;
 import com.eteration.simplebanking.payload.request.CreatedAccountRequest;
 import com.eteration.simplebanking.payload.response.TransactionResponse;
 import com.eteration.simplebanking.repository.AccountRepository;
@@ -126,12 +128,13 @@ class AccountServiceTest extends BaseServiceTest {
         String accountNumber = "12345";
         CreateCreditRequest  request = CreateCreditRequest.builder()
                 .accountNumber(accountNumber)
-                .amount(50.0)
+                .amount(150.0)
                 .build();
 
         Account account = Account.builder()
                 .accountNumber("123-456")
                 .owner("John Doe")
+                .balance(200.0)
                 .transactions(new HashSet<>())
                 .build();
 
@@ -156,6 +159,100 @@ class AccountServiceTest extends BaseServiceTest {
 
         assertEquals(transactionResponse.getStatus(), response.getStatus());
         assertEquals(transactionResponse.getApprovalCode(), response.getApprovalCode());
+
+        uuidMockedStatic.close();
+
+        // verify
+        verify(accountRepository,times(1)).findByAccountNumber(accountNumber);
+
+    }
+
+    @Test
+    public void givenCreateWithdrawalRequest_WhenAccountExists_ThenReturnTransactionResponse() {
+
+        // Given
+        String accountNumber = "12345";
+        CreateWithdrawalRequest request = CreateWithdrawalRequest.builder()
+                .accountNumber(accountNumber)
+                .amount(20.0)
+                .build();
+
+        Account account = Account.builder()
+                .accountNumber("123-456")
+                .owner("John Doe")
+                .balance(100.0)
+                .transactions(new HashSet<>())
+                .build();
+
+        String expectedApprovalCode = "2c9ab7c5-924f-44af-9462-c8ce160fcf11";
+
+        TransactionResponse transactionResponse = TransactionResponse.builder()
+                .status("OK")
+                .approvalCode(expectedApprovalCode)
+                .build();
+
+        UUID mockUUID = UUID.fromString(expectedApprovalCode);
+        MockedStatic<UUID> uuidMockedStatic = mockStatic(UUID.class);
+
+
+        // when
+        when(accountRepository.findByAccountNumber(accountNumber)).thenReturn(Optional.of(account));
+        uuidMockedStatic.when(UUID::randomUUID).thenReturn(mockUUID);
+
+
+        // then
+        TransactionResponse response = accountService.debit(request);
+
+        assertEquals(transactionResponse.getStatus(), response.getStatus());
+        assertEquals(transactionResponse.getApprovalCode(), response.getApprovalCode());
+
+        uuidMockedStatic.close();
+
+        // verify
+        verify(accountRepository,times(1)).findByAccountNumber(accountNumber);
+
+    }
+
+    @Test
+    public void givenCreatePhoneBillPaymentRequest_WhenAccountExists_ThenReturnTransactionResponse() {
+
+        // Given
+        String accountNumber = "12345";
+        CreatePhoneBillPaymentRequest request = CreatePhoneBillPaymentRequest.builder()
+                .accountNumber(accountNumber)
+                .amount(20.0)
+                .build();
+
+        Account account = Account.builder()
+                .accountNumber("123-456")
+                .owner("John Doe")
+                .balance(100.0)
+                .transactions(new HashSet<>())
+                .build();
+
+        String expectedApprovalCode = "2c9ab7c5-924f-44af-9462-c8ce160fcf11";
+
+        TransactionResponse transactionResponse = TransactionResponse.builder()
+                .status("OK")
+                .approvalCode(expectedApprovalCode)
+                .build();
+
+        UUID mockUUID = UUID.fromString(expectedApprovalCode);
+        MockedStatic<UUID> uuidMockedStatic = mockStatic(UUID.class);
+
+
+        // when
+        when(accountRepository.findByAccountNumber(accountNumber)).thenReturn(Optional.of(account));
+        uuidMockedStatic.when(UUID::randomUUID).thenReturn(mockUUID);
+
+
+        // then
+        TransactionResponse response = accountService.payment(request);
+
+        assertEquals(transactionResponse.getStatus(), response.getStatus());
+        assertEquals(transactionResponse.getApprovalCode(), response.getApprovalCode());
+
+        uuidMockedStatic.close();
 
         // verify
         verify(accountRepository,times(1)).findByAccountNumber(accountNumber);
