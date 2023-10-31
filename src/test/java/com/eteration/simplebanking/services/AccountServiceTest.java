@@ -14,6 +14,7 @@ import com.eteration.simplebanking.repository.TransactionRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.springframework.test.util.ReflectionTestUtils;
 
@@ -134,16 +135,21 @@ class AccountServiceTest extends BaseServiceTest {
                 .transactions(new HashSet<>())
                 .build();
 
-        String expectedApprovalCode = "test-approval-code";
+        String expectedApprovalCode = "2c9ab7c5-924f-44af-9462-c8ce160fcf11";
 
         TransactionResponse transactionResponse = TransactionResponse.builder()
                 .status("OK")
                 .approvalCode(expectedApprovalCode)
                 .build();
 
+        UUID mockUUID = UUID.fromString(expectedApprovalCode);
+        MockedStatic<UUID> uuidMockedStatic = mockStatic(UUID.class);
+
+
         // when
         when(accountRepository.findByAccountNumber(accountNumber)).thenReturn(Optional.of(account));
-        ReflectionTestUtils.setField(transactionResponse, "approvalCode", expectedApprovalCode);
+        uuidMockedStatic.when(UUID::randomUUID).thenReturn(mockUUID);
+
 
         // then
         TransactionResponse response = accountService.credit(request);
