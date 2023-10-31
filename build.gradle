@@ -16,7 +16,6 @@ dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-web'
   testImplementation('org.springframework.boot:spring-boot-starter-test')
   developmentOnly 'org.springframework.boot:spring-boot-devtools'
-  testImplementation('org.mockito:mockito-core')
   testImplementation "org.mockito:mockito-inline"
   compileOnly "org.projectlombok:lombok"
   annotationProcessor "org.projectlombok:lombok"
