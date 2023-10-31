@@ -3,7 +3,6 @@ package com.eteration.simplebanking.controller;
 import com.eteration.simplebanking.base.BaseControllerTest;
 import com.eteration.simplebanking.dto.AccountDTO;
 import com.eteration.simplebanking.mapper.AccountMapper;
-import com.eteration.simplebanking.model.Account;
 import com.eteration.simplebanking.payload.request.CreateCreditRequest;
 import com.eteration.simplebanking.payload.request.CreatePhoneBillPaymentRequest;
 import com.eteration.simplebanking.payload.request.CreateWithdrawalRequest;
