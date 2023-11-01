@@ -1,0 +1,73 @@
+version: "3.9"
+
+services:
+  database:
+    container_name: database
+    image: postgres:13.4
+    restart: always
+    env_file:
+      - .env  # Use the .env file for environment variables
+    environment:
+      POSTGRES_DB: simplebanking
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - simplebankingNetwork
+
+  simplebanking:
+    image: 'simplebanking:latest'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: simplebanking
+    restart: on-failure
+    env_file:
+      - .env  # Use the .env file for environment variables
+    ports:
+      - "1222:1222"
+    environment:
+      - server.port=1222
+      - spring.datasource.username=${DATABASE_USERNAME}
+      - spring.datasource.password=${DATABASE_PASSWORD}
+      - spring.datasource.url=jdbc:postgresql://database:5432/simplebanking
+      - BANKING_DB_IP=database
+      - BANKING_DB_PORT=5432
+    depends_on:
+      - database
+    networks:
+      - simplebankingNetwork
+
+  prometheus:
+    image: prom/prometheus:v2.35.0
+    container_name: prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./data/prometheus/config:/etc/prometheus/
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    networks:
+      - simplebankingNetwork
+
+  grafana:
+    image: grafana/grafana-oss:8.5.2
+    pull_policy: always
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data/grafana:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SERVER_DOMAIN=localhost
+    networks:
+      - simplebankingNetwork
+
+networks:
+  simplebankingNetwork:

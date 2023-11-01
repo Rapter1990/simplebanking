@@ -23,3 +23,16 @@ springdoc:
     enabled: true
     path: /api-docs
   show-actuator: true
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - "*"
+          - prometheus
+  prometheus:
+    metrics:
+      export:
+        enabled: true
