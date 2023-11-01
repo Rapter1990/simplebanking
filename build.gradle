@@ -28,6 +28,8 @@ dependencies {
   annotationProcessor "org.mapstruct:mapstruct-processor:1.5.3.Final"
   implementation "com.h2database:h2"
   implementation "org.postgresql:postgresql"
+  testImplementation 'org.junit.jupiter:junit-jupiter-api'
+  testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 }
 
 test {
