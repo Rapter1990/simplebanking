@@ -261,3 +261,7 @@ These additional references should also help you:
     <img src ="screenshots/grafana_9.PNG">
 </details>
 
+### Contributors
+
+- [Sercan Noyan Germiyanoğlu](https://github.com/Rapter1990)
+
