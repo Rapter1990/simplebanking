@@ -156,8 +156,8 @@ $ docker-compose up --build
 ```
 
 ---
-### Maven Run
-To build and run the application with `Maven`, please follow the directions shown below;
+### Gradle Run
+To build and run the application with `Gradle`, please follow the directions shown below;
 
 ```sh
 $ cd simplebanking
