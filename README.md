@@ -1,7 +1,7 @@
 # Getting Started with Simple Banking
 
 <p align="center">
-    <img src="screenshots/simple_banking_main_image.png" alt="Main Information" width="700" height="500">
+    <img src="screenshots/simple_banking_main_image.png" alt="Main Information" width="700" height="400">
 </p>
 
 In this assignment you will build a banking service that can handle any number of transactions for bank accounts. The service is part of a larger collection of services that model the inner workings of a bank. The services for the "bank account" provide a simple model of how bank accounts might work in an overly simplified world.
