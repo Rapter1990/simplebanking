@@ -169,6 +169,7 @@ To get the current account data, one would use:
 - Postman
 - Actuator
 - Swagger 3
+- PostgreSQL
 
 
 ### Swagger
