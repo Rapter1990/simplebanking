@@ -1,0 +1,169 @@
+{
+	"info": {
+		"_postman_id": "f9287142-913f-40c1-a1e6-89a3e2230181",
+		"name": "Simple Bank App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5570426"
+	},
+	"item": [
+		{
+			"name": "Create Account",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"owner\" : \"Account 1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1222/api/v1/account/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1222",
+					"path": [
+						"api",
+						"v1",
+						"account",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Account Info",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"owner\" : \"Account 1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1222/api/v1/account/account-number/459-524",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1222",
+					"path": [
+						"api",
+						"v1",
+						"account",
+						"account-number",
+						"459-524"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deposit Amount",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"accountNumber\" : \"509-269\",\r\n    \"amount\" : 1000.0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1222/api/v1/account/credit",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1222",
+					"path": [
+						"api",
+						"v1",
+						"account",
+						"credit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Withdraw Amount",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"accountNumber\" : \"509-269\",\r\n    \"amount\" : 200.0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1222/api/v1/account/debit",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1222",
+					"path": [
+						"api",
+						"v1",
+						"account",
+						"debit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pay Phone Bill Amount",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"accountNumber\" : \"509-269\",\r\n    \"amount\" : 200.0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1222/api/v1/account/payment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1222",
+					"path": [
+						"api",
+						"v1",
+						"account",
+						"payment"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
