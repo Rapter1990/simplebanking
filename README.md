@@ -104,9 +104,45 @@ To get the current account data, one would use:
   </tr>
   <tr>
       <td>POST</td>
-      <td>/api/v1/auth/login</td>
-      <td>Login of both Admin and Customer</td>
-      <td>LoginRequest</td>
+      <td>/api/v1/account/createAccount</td>
+      <td>Create Account</td>
+      <td>CreatedAccountRequest</td>
+      <td></td>
+      <td></td>
+      <td></td>
+  <tr>
+  <tr>
+      <td>GET</td>
+      <td>/api/v1/account/account-number/{accountNumber}</td>
+      <td>Get Account Details</td>
+      <td></td>
+      <td></td>
+      <td>accountNumber</td>
+      <td></td>
+  <tr>
+  <tr>
+      <td>POST</td>
+      <td>/api/v1/account/credit</td>
+      <td>Deposit Money to Account</td>
+      <td>CreateCreditRequest</td>
+      <td></td>
+      <td></td>
+      <td></td>
+  <tr>
+  <tr>
+      <td>POST</td>
+      <td>/api/v1/account/debit</td>
+      <td>Withdraw Money from Account</td>
+      <td>CreateWithdrawalRequest</td>
+      <td></td>
+      <td></td>
+      <td></td>
+  <tr>
+  <tr>
+      <td>POST</td>
+      <td>/api/v1/account/payment</td>
+      <td>Payment of Phone Bill from Account</td>
+      <td>CreatePhoneBillPaymentRequest</td>
       <td></td>
       <td></td>
       <td></td>
