@@ -239,15 +239,15 @@ These additional references should also help you:
 <details>
 <summary>Click here to show the screenshots of project</summary>
     <p> Figure 1 </p>
-    <img src ="screenshots/prometheues.PNG">
+    <img src ="screenshots/screenshot_1.PNG">
     <p> Figure 2 </p>
-    <img src ="screenshots/prometheues_1.PNG">
+    <img src ="screenshots/screenshot_2.PNG">
     <p> Figure 3 </p>
-    <img src ="screenshots/grafana_1.PNG">
+    <img src ="screenshots/screenshot_3.PNG">
     <p> Figure 4 </p>
-    <img src ="screenshots/grafana_2.PNG">
+    <img src ="screenshots/screenshot_4.PNG">
     <p> Figure 5 </p>
-    <img src ="screenshots/grafana_3.PNG">
+    <img src ="screenshots/screenshot_5.PNG">
     <p> Figure 6 </p>
     <img src ="screenshots/grafana_4.PNG">
     <p> Figure 7 </p>
