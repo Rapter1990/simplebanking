@@ -102,6 +102,16 @@ To get the current account data, one would use:
       <th>Valid Path Variable</th>
       <th>No Path Variable</th>
   </tr>
+  <tr>
+      <td>POST</td>
+      <td>/api/v1/auth/login</td>
+      <td>Login of both Admin and Customer</td>
+      <td>LoginRequest</td>
+      <td></td>
+      <td></td>
+      <td></td>
+  <tr>
+  
 </table>
 
 
@@ -133,10 +143,16 @@ http://localhost:1222/swagger-ui/index.html
 
 ### Prerequisites
 
+#### Define Variable in .env file
+
+```
+DATABASE_USERNAME={DATABASE_USERNAME}
+DATABASE_PASSWORD={DATABASE_PASSWORD}
+```
+
 ---
 - Gradle or Docker
 ---
-
 
 ### Docker Run
 The application can be built and run by the `Docker` engine. The `Dockerfile` has multistage build, so you do not need to build and run separately.
