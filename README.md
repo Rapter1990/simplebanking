@@ -1,4 +1,4 @@
-# Getting Started with Simple Banking
+# Case Study - Simple Banking
 
 <p align="center">
     <img src="screenshots/simple_banking_main_image.png" alt="Main Information" width="700" height="400">
