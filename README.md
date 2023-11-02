@@ -249,17 +249,27 @@ These additional references should also help you:
     <p> Figure 5 </p>
     <img src ="screenshots/screenshot_5.PNG">
     <p> Figure 6 </p>
-    <img src ="screenshots/grafana_4.PNG">
+    <img src ="screenshots/screenshot_6.PNG">
     <p> Figure 7 </p>
-    <img src ="screenshots/grafana_5.PNG">
+    <img src ="screenshots/screenshot_7.PNG">
     <p> Figure 8 </p>
-    <img src ="screenshots/grafana_6.PNG">
+    <img src ="screenshots/screenshot_8.PNG">
     <p> Figure 9 </p>
-    <img src ="screenshots/grafana_7.PNG">
+    <img src ="screenshots/screenshot_9.PNG">
     <p> Figure 10 </p>
-    <img src ="screenshots/grafana_8.PNG">
+    <img src ="screenshots/screenshot_10.PNG">
     <p> Figure 11 </p>
-    <img src ="screenshots/grafana_9.PNG">
+    <img src ="screenshots/screenshot_11.PNG">
+    <p> Figure 12 </p>
+    <img src ="screenshots/screenshot_12.PNG">
+    <p> Figure 13 </p>
+    <img src ="screenshots/screenshot_13.PNG">
+    <p> Figure 14 </p>
+    <img src ="screenshots/screenshot_14.PNG">
+    <p> Figure 15 </p>
+    <img src ="screenshots/screenshot_15.PNG">
+    <p> Figure 16 </p>
+    <img src ="screenshots/screenshot_16.PNG">
 </details>
 
 ### Contributors
