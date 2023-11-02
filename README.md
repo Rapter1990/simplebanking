@@ -1,5 +1,9 @@
 # Getting Started with Simple Banking
 
+<p align="center">
+    <img src="screenshots/book_delivey_main_image.png" alt="Main Information" width="700" height="500">
+</p>
+
 In this assignment you will build a banking service that can handle any number of transactions for bank accounts. The service is part of a larger collection of services that model the inner workings of a bank. The services for the "bank account" provide a simple model of how bank accounts might work in an overly simplified world.
 
 For this assignment, the bank account is exclusively interested in maintaining the name of the account owner, the number of the account and the account’s balance. The endpoints will be limited to methods that provide a means of crediting and debiting the account. 
@@ -86,6 +90,80 @@ To get the current account data, one would use:
         ]
     }
 
+### Explore Rest APIs
+
+<table style="width:100%">
+  <tr>
+      <th>Method</th>
+      <th>Url</th>
+      <th>Description</th>
+      <th>Request Body</th>
+      <th>Header</th>
+      <th>Valid Path Variable</th>
+      <th>No Path Variable</th>
+  </tr>
+</table>
+
+
+### Technologies
+
+---
+- Java 11
+- Spring Boot 2.5.5
+- Restful API
+- Lombok
+- Gradle
+- Junit5
+- Mockito
+- Integration Tests
+- Docker
+- Docker Compose
+- CI/CD (Github Actions)
+- Prometheus and Grafana
+- Postman
+- Actuator
+- Swagger 3
+
+
+### Swagger
+
+```
+http://localhost:1222/swagger-ui/index.html
+```
+
+### Prerequisites
+
+---
+- Gradle or Docker
+---
+
+
+### Docker Run
+The application can be built and run by the `Docker` engine. The `Dockerfile` has multistage build, so you do not need to build and run separately.
+
+Please follow directions shown below in order to build and run the application with Docker Compose file;
+
+```sh
+$ cd simplebanking
+$ docker-compose up -d
+```
+
+If you change anything in the project and run it on Docker, you can also use this command shown below
+
+```sh
+$ cd simplebanking
+$ docker-compose up --build
+```
+
+---
+### Maven Run
+To build and run the application with `Maven`, please follow the directions shown below;
+
+```sh
+$ cd simplebanking
+$ gradle clean build
+$ gradle bootRun
+```
 
 ## Reference Documentation
 For further reference, please consider the following sections:
@@ -103,5 +181,31 @@ The following guides illustrate how to use some features concretely:
 These additional references should also help you:
 * [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)
 
+### Screenshots
 
+<details>
+<summary>Click here to show the screenshots of project</summary>
+    <p> Figure 1 </p>
+    <img src ="screenshots/prometheues.PNG">
+    <p> Figure 2 </p>
+    <img src ="screenshots/prometheues_1.PNG">
+    <p> Figure 3 </p>
+    <img src ="screenshots/grafana_1.PNG">
+    <p> Figure 4 </p>
+    <img src ="screenshots/grafana_2.PNG">
+    <p> Figure 5 </p>
+    <img src ="screenshots/grafana_3.PNG">
+    <p> Figure 6 </p>
+    <img src ="screenshots/grafana_4.PNG">
+    <p> Figure 7 </p>
+    <img src ="screenshots/grafana_5.PNG">
+    <p> Figure 8 </p>
+    <img src ="screenshots/grafana_6.PNG">
+    <p> Figure 9 </p>
+    <img src ="screenshots/grafana_7.PNG">
+    <p> Figure 10 </p>
+    <img src ="screenshots/grafana_8.PNG">
+    <p> Figure 11 </p>
+    <img src ="screenshots/grafana_9.PNG">
+</details>
 
