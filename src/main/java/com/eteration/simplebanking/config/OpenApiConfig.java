@@ -7,9 +7,17 @@ import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.OpenAPI;
 
 
+/**
+ * Configuration class for OpenAPI documentation of the Simple Banking App API.
+ */
 @Configuration
 public class OpenApiConfig {
 
+    /**
+     * Creates and configures the OpenAPI documentation for the Simple Banking App API.
+     *
+     * @return An OpenAPI instance containing API information.
+     */
     @Bean
     public OpenAPI bankingApiOpenAPI() {
         Contact contact = new Contact()
