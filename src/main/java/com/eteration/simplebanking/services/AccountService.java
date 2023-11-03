@@ -22,18 +22,36 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Service class responsible for managing accounts and financial transactions in the Simple Banking App.
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
 @Transactional
 public class AccountService {
 
+    /**
+     * Repository for managing accounts in the Simple Banking App.
+     */
     private final AccountRepository accountRepository;
+
+    /**
+     * Repository for managing transactions in the Simple Banking App.
+     */
     private final TransactionRepository transactionRepository;
 
+    /**
+     * Mapper for mapping transaction entities to transaction DTOs.
+     */
     private final TransactionMapper transactionMapper;
 
-
+    /**
+     * Creates a new account based on the provided request.
+     *
+     * @param request The request for creating an account, including the owner's name.
+     * @return The created account details as an AccountDTO.
+     */
     public AccountDTO create(CreatedAccountRequest request) {
 
         Account account = Account.builder()
@@ -57,6 +75,13 @@ public class AccountService {
                 .build();
     }
 
+    /**
+     * Retrieves account details by its account number.
+     *
+     * @param accountNumber The unique account number to search for.
+     * @return The account details as an AccountDTO if found.
+     * @throws AccountNotFoundException if the account is not found.
+     */
     public AccountDTO getAccountByAccountNumber(String accountNumber) {
         
         Account account = accountRepository.findByAccountNumber(accountNumber)
@@ -75,6 +100,12 @@ public class AccountService {
                 .build();
     }
 
+    /**
+     * Processes a credit transaction by adding funds to the specified account.
+     *
+     * @param createCreditRequest The request for creating a credit transaction, including account number and amount.
+     * @return The transaction response.
+     */
     public TransactionResponse credit(CreateCreditRequest createCreditRequest){
 
         Account account = accountRepository.findByAccountNumber(createCreditRequest.getAccountNumber())
@@ -96,6 +127,12 @@ public class AccountService {
                 .build();
     }
 
+    /**
+     * Processes a debit transaction by withdrawing funds from the specified account.
+     *
+     * @param createWithdrawalRequest The request for creating a debit transaction, including account number and amount.
+     * @return The transaction response.
+     */
     public TransactionResponse debit(CreateWithdrawalRequest createWithdrawalRequest){
 
         Account account = accountRepository.findByAccountNumber(createWithdrawalRequest.getAccountNumber())
@@ -118,6 +155,12 @@ public class AccountService {
 
     }
 
+    /**
+     * Processes a payment transaction by paying a phone bill from the specified account.
+     *
+     * @param createPhoneBillPaymentRequest The request for creating a phone bill payment transaction, including account number and amount.
+     * @return The transaction response.
+     */
     public TransactionResponse payment(CreatePhoneBillPaymentRequest createPhoneBillPaymentRequest){
 
         Account account = accountRepository.findByAccountNumber(createPhoneBillPaymentRequest.getAccountNumber())
@@ -140,7 +183,11 @@ public class AccountService {
     }
 
 
-
+    /**
+     * Generates a unique account number by repeatedly generating random numbers and checking for uniqueness.
+     *
+     * @return A unique account number in the format "NNN-NNNNNN."
+     */
     private String generateUniqueAccountNumber() {
         String accountNumber;
         do {
@@ -150,6 +197,11 @@ public class AccountService {
         return accountNumber;
     }
 
+    /**
+     * Generates a random number within a specific range (100000 to 999999).
+     *
+     * @return A random number as a string.
+     */
     private String generateRandomNumber() {
         Random random = new Random();
         int min = 100000;
@@ -158,9 +210,16 @@ public class AccountService {
         return String.valueOf(randomNumber);
     }
 
+    /**
+     * Checks whether the provided account number is unique by querying the account repository.
+     *
+     * @param accountNumber The account number to check for uniqueness.
+     * @return true if the account number is unique, false otherwise.
+     */
     private boolean isAccountNumberUnique(String accountNumber) {
 
         Optional<Account> existingAccount = accountRepository.findByAccountNumber(accountNumber);
         return existingAccount.isEmpty();
     }
+
 }
