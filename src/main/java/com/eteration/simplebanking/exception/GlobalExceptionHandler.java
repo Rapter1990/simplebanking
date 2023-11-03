@@ -18,12 +18,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Global exception handler for handling various exceptions and generating error responses.
+ */
 @ControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 
-
+    /**
+     * Handles the exception when the requested media type is not supported.
+     *
+     * @param ex      The HttpMediaTypeNotSupportedException that was thrown.
+     * @param headers The HTTP headers.
+     * @param status  The HTTP status.
+     * @param request The web request.
+     * @return A ResponseEntity with an error response for unsupported media type.
+     */
     @Override
     protected ResponseEntity<Object> handleHttpMediaTypeNotSupported(HttpMediaTypeNotSupportedException ex,
                                                                      HttpHeaders headers,
@@ -50,7 +61,15 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(status).body(errorResponse);
     }
 
-
+    /**
+     * Handles the exception when the HTTP message is not readable, often due to malformed JSON.
+     *
+     * @param ex      The HttpMessageNotReadableException that was thrown.
+     * @param headers The HTTP headers.
+     * @param status  The HTTP status.
+     * @param request The web request.
+     * @return A ResponseEntity with an error response for a malformed JSON request.
+     */
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
                                                                   HttpHeaders headers,
@@ -72,7 +91,15 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(status).body(errorResponse);
     }
 
-
+    /**
+     * Handles the exception when method arguments fail validation.
+     *
+     * @param ex      The MethodArgumentNotValidException that was thrown.
+     * @param headers The HTTP headers.
+     * @param status  The HTTP status.
+     * @param request The web request.
+     * @return A ResponseEntity with an error response for validation errors.
+     */
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                   HttpHeaders headers,
@@ -97,7 +124,15 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     }
 
-
+    /**
+     * Handles the exception when a required request parameter is missing.
+     *
+     * @param ex      The MissingServletRequestParameterException that was thrown.
+     * @param headers The HTTP headers.
+     * @param status  The HTTP status.
+     * @param request The web request.
+     * @return A ResponseEntity with an error response for missing request parameters.
+     */
     @Override
     protected ResponseEntity<Object> handleMissingServletRequestParameter(MissingServletRequestParameterException ex,
                                                                           HttpHeaders headers,
@@ -119,7 +154,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(status).body(errorResponse);
     }
 
-
+    /**
+     * Handles the custom exception InsufficientBalanceException.
+     *
+     * @param exception The InsufficientBalanceException that was thrown.
+     * @return A ResponseEntity with an error response for insufficient balance.
+     */
     @ExceptionHandler(InsufficientBalanceException.class)
     protected ResponseEntity<Object> handleNotFoundException(InsufficientBalanceException exception) {
 
@@ -134,6 +174,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body(errorResponse);
     }
 
+    /**
+     * Handles the custom exception AccountNotFoundException.
+     *
+     * @param exception The AccountNotFoundException that was thrown.
+     * @return A ResponseEntity with an error response for account not found.
+     */
     @ExceptionHandler(AccountNotFoundException.class)
     protected ResponseEntity<Object> handleNotFoundException(AccountNotFoundException exception) {
 
@@ -147,4 +193,5 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
+
 }
